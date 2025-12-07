@@ -1,0 +1,279 @@
+1. Struktur Folder
+
+Root aplikasi: C:\xampp\htdocs\webtoko\
+
+index.php → halaman utama (menu kelontong)
+
+pesan.php → form pemesanan user
+
+login.php → halaman login admin
+
+admin.php → dashboard admin
+
+produk.php → kelola produk (admin)
+
+pesanan.php → kelola pesanan (admin)
+
+Folder gambar: C:\xampp\htdocs\webtoko\assets\img\
+
+ayam.jpg
+
+mie1.jpg
+
+mie2.jpg
+
+mie3.jpg
+
+mie4.jpg
+
+mie5.jpg
+
+🗄️ 2. Database (Konseptual, nama: tokomie)
+Tabel: admin
+
+id_admin (PK)
+
+username
+
+password_md5 (disimpan dalam MD5)
+
+nama_lengkap
+
+created_at
+
+Tabel: produk
+
+id_produk (PK)
+
+nama_produk (contoh: Mie Geprek, Mie Gelas, Kecap Bango, Chocolatos Drink, Indomie Goreng)
+
+harga
+
+stok
+
+gambar (nama file di assets/img/)
+
+kategori (Makanan, Minuman, Bumbu, dll)
+
+status (aktif / nonaktif)
+
+created_at
+
+Tabel: pesanan
+
+id_pesanan (PK)
+
+kode_pesanan (unik, auto generate)
+
+nama_pemesan
+
+no_hp
+
+alamat
+
+total_harga
+
+metode_pembayaran (COD / Transfer)
+
+status (pending, diproses, dikirim, selesai, batal)
+
+created_at
+
+Tabel: detail_pesanan
+
+id_detail (PK)
+
+id_pesanan (FK)
+
+id_produk (FK)
+
+nama_produk (snapshot)
+
+harga_satuan
+
+jumlah
+
+subtotal
+
+🖼️ 3. Layout Frontend (User)
+A. Halaman Utama (index.php)
+
+Navbar: logo toko, menu navigasi (Home, Produk, Cek Pesanan).
+
+Banner / Hero: gambar promo.
+
+Daftar Produk (grid cards Bootstrap):
+
+Gambar produk
+
+Nama produk
+
+Harga
+
+Tombol “Pesan Sekarang” → link ke pesan.php.
+
+Contoh produk yang ditampilkan:
+
+Mie Geprek – Rp 15.000
+
+Mie Gelas – Rp 5.000
+
+Kecap Bango – Rp 20.000
+
+Chocolatos Drink – Rp 7.000
+
+Indomie Goreng – Rp 3.500
+
+B. Form Pemesanan (pesan.php)
+
+Form pemesanan online:
+
+Nama Pemesan
+
+No HP
+
+Alamat
+
+Pilih Produk (dropdown atau select menu)
+
+Jumlah (angka)
+
+Metode Pembayaran (COD / Transfer)
+
+Tombol Konfirmasi Pesanan
+
+Setelah submit → tampilkan halaman konfirmasi + kode pesanan.
+
+C. Halaman Cek Pesanan
+
+Input: kode_pesanan atau nomor HP.
+
+Output: status pesanan (Pending / Diproses / Dikirim / Selesai / Batal) + detail produk.
+
+🖥️ 4. Layout Backend (Admin)
+A. Login Admin (login.php)
+
+Form login sederhana: username, password.
+
+Password disimpan & diverifikasi dengan MD5 hash.
+
+B. Dashboard Admin (admin.php)
+
+Ringkasan data:
+
+Jumlah pesanan hari ini
+
+Jumlah produk aktif
+
+Pesanan pending
+
+Pendapatan total
+
+C. Kelola Produk (produk.php)
+
+Tabel daftar produk:
+
+Nama produk
+
+Harga
+
+Stok
+
+Status (Aktif / Nonaktif)
+
+Gambar produk
+
+Aksi: Tambah, Edit, Hapus
+
+D. Kelola Pesanan (pesanan.php)
+
+Tabel daftar pesanan:
+
+Kode pesanan
+
+Nama pemesan
+
+No HP
+
+Total harga
+
+Status pesanan (dropdown)
+
+Tanggal pesanan
+
+Aksi: Lihat detail, Ubah status, Hapus
+
+Detail pesanan menampilkan daftar barang, jumlah, subtotal, alamat pengiriman.
+
+🔄 5. Alur Pemesanan
+
+User masuk ke halaman utama → pilih produk → klik “Pesan”.
+
+User mengisi form pemesanan (nama, hp, alamat, jumlah, metode bayar).
+
+Sistem menyimpan data → membuat kode pesanan unik.
+
+User mendapat konfirmasi kode pesanan + detail order.
+
+Admin login → buka Kelola Pesanan.
+
+Admin ubah status pesanan:
+
+Pending → Diproses → Dikirim → Selesai / Batal.
+
+User bisa cek status pesanan via halaman Cek Pesanan dengan kode pesanan.
+
+📐 6. Wireframe (Desain Tampilan Sederhana)
+Halaman Produk (User)
+--------------------------------------------------
+| 🍜 Toko Kelontong                               |
+--------------------------------------------------
+| [Banner Promo]                                  |
+--------------------------------------------------
+| [IMG mie1] Mie Geprek   Rp 15.000 [Pesan]       |
+| [IMG mie2] Mie Gelas    Rp 5.000  [Pesan]       |
+| [IMG mie3] Kecap Bango  Rp 20.000 [Pesan]       |
+| [IMG mie4] Chocolatos   Rp 7.000  [Pesan]       |
+| [IMG mie5] Indomie Ggr  Rp 3.500  [Pesan]       |
+--------------------------------------------------
+
+Form Pesan
+--------------------------------------------------
+| Form Pemesanan                                  |
+--------------------------------------------------
+| Nama Pemesan:  [______________]                 |
+| No HP:         [______________]                 |
+| Alamat:        [______________]                 |
+| Pilih Produk:  [Dropdown List]                  |
+| Jumlah:        [  1  ]                          |
+| Metode Bayar:  ( ) COD  ( ) Transfer            |
+--------------------------------------------------
+| [ Konfirmasi Pesanan ]                          |
+--------------------------------------------------
+
+Dashboard Admin
+--------------------------------------------------
+| Dashboard Admin - Toko Kelontong                |
+--------------------------------------------------
+| Pesanan Hari Ini: 12 | Pending: 5 | Produk: 20  |
+--------------------------------------------------
+| [Kelola Produk] | [Kelola Pesanan] | [Logout]   |
+--------------------------------------------------
+
+Kelola Pesanan
+--------------------------------------------------
+| No | Kode | Nama Pemesan | Total | Status | Aksi |
+--------------------------------------------------
+| 1  | P001 | Andi         | 35k   | Pending| [Lihat] [Proses] |
+| 2  | P002 | Siti         | 20k   | Dikirim| [Lihat] [Selesai]|
+--------------------------------------------------
+
+✅ 7. Catatan Teknis
+
+Layout pakai Bootstrap 5 → responsif, mobile friendly.
+
+Login admin pakai MD5 hash (sesuai permintaan, meski tidak direkomendasikan di produksi).
+
+Data produk & pesanan tersimpan di MySQL (db: tokomie).
+
+Sistem alur mirip e-commerce mini: katalog → pesan → admin kelola → user cek status.

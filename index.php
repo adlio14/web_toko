@@ -112,7 +112,7 @@ $result = $conn->query("SELECT * FROM produk ORDER BY nama_produk ASC");
     <div class="container mt-4">
         <div class="row mb-4">
             <div class="col-12 text-center">
-                <h1 class="slide-in-from-left">Selamat Datang di adilokamart</h1>
+                <h1 class="slide-in-from-left">Selamat Datang di SKAnsaMart</h1>
                 <p class="lead slide-in-from-right">Semua kebutuhan Anda ada di sini!</p>
             </div>
         </div>
